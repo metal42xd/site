@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — Your Name</title>
+  <meta name="description" content="Personal developer portfolio" />
+
+  <!-- Favicon (inline) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='12' width='64' height='64' fill='%231e90ff'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' font-family='monospace' font-size='36' fill='white'%3EJ%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    /* =============== CSS Reset / Tokens =============== */
+    *,*::before,*::after{box-sizing:border-box}
+    :root{
+      --bg:#0b0d10;--surface:#11151b;--muted:#a9b1c3;--text:#eaf0ff;--brand:#67b3ff;--brand-2:#67ffd2;
+      --ring:rgba(103,179,255,.35);--radius:18px;--shadow:0 14px 50px rgba(0,0,0,.45);
+      --w:clamp(280px,92vw,1120px);
+    }
+    @media (prefers-color-scheme: light){
+      :root{--bg:#fbfdff;--surface:#ffffff;--text:#10141a;--muted:#5b6676;--shadow:0 12px 34px rgba(16,24,40,.08)}
+    }
+    html,body{height:100%}
+    body{
+      margin:0;font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(103,179,255,.12), transparent 60%),
+        radial-gradient(1000px 500px at 90% 0%, rgba(103,255,210,.12), transparent 60%),
+        var(--bg);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--w);margin-inline:auto;padding:0 22px}
+
+    /* =============== Header =============== */
+    header{
+      position:sticky;top:0;z-index:50;
+      background:linear-gradient(180deg, rgba(11,13,16,.85), rgba(11,13,16,.55) 60%, transparent);
+      backdrop-filter:saturate(1.3) blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.3px}
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(45deg,var(--brand),var(--brand-2));box-shadow:0 0 18px var(--ring)}
+    .links{display:flex;gap:18px;font-weight:600}
+    .links a{opacity:.86}
+    .links a:hover{opacity:1}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));box-shadow:var(--shadow)}
+
+    /* =============== Hero =============== */
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center;padding:68px 0 44px}
+    .eyebrow{display:inline-flex;gap:10px;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);color:var(--muted)}
+    .title{font-weight:900;line-height:1.05;font-size:clamp(36px,7.5vw,68px);margin:12px 0 14px}
+    .subtitle{color:var(--muted);margin:0 0 24px;max-width:60ch}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .spark{position:relative}
+    .spark::after{content:"";position:absolute;inset:-2px;border-radius:999px;background:
+      radial-gradient(120px 24px at 30% -30%, rgba(103,179,255,.35), transparent 40%),
+      radial-gradient(120px 24px at 70% 130%, rgba(103,255,210,.35), transparent 40%);
+      filter:blur(16px);z-index:-1;opacity:.9}
+    .stage{aspect-ratio:4/3;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);display:grid;place-items:center;position:relative;overflow:hidden}
+    .glow{position:absolute;inset:-20%;background:radial-gradient(closest-side, rgba(103,179,255,.18), transparent 70%);filter:blur(30px)}
+    .kbd{font-weight:800;letter-spacing:3px;color:rgba(255,255,255,.85)}
+
+    /* =============== Sections =============== */
+    .section{padding:60px 0}
+    .section h2{font-size:28px;margin:0 0 14px}
+    .section p.lead{color:var(--muted);margin:0 0 24px}
+
+    /* =============== Grid Cards =============== */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+    .card{grid-column:span 6;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      position:relative;overflow:hidden;transition:transform .25s ease, box-shadow .25s ease}
+    .card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+    .card .tag{font-size:12px;color:var(--muted)}
+    .card h3{margin:6px 0 8px;font-size:20px}
+    .card p{margin:0 0 12px;color:var(--muted)}
+    .card .actions{display:flex;gap:10px}
+    .action{padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+
+    /* =============== About / Skills / Experience =============== */
+    .about{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .about .box{border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))}
+
+    .xp{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .xp .item{border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))}
+    .xp .role{font-weight:700}
+    .xp .meta{color:var(--muted);font-size:14px}
+
+    .skills{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12);color:var(--muted)}
+
+    /* =============== Contact =============== */
+    form{display:grid;gap:12px;max-width:720px}
+    input,textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:var(--text);border-radius:12px;padding:12px 14px;font:inherit}
+    textarea{min-height:120px;resize:vertical}
+    button.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:#061018;font-weight:800;border-radius:12px;padding:12px 16px}
+
+    /* =============== Footer =============== */
+    footer{padding:32px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
+
+    /* =============== Utilities =============== */
+    .fade-up{opacity:0;transform:translateY(16px);animation:fadeUp .7s ease forwards}
+    .fade-up.d2{animation-delay:.08s}.fade-up.d3{animation-delay:.16s}.fade-up.d4{animation-delay:.24s}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+
+    /* =============== Responsive =============== */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;gap:22px;padding-top:36px}
+      .about{grid-template-columns:1fr}
+      .xp{grid-template-columns:1fr}
+      .card{grid-column:span 12}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Your Name</span>
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="btn" id="themeBtn" aria-label="Toggle theme">☾</button>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow fade-up">— Location · Availability</p>
+        <h1 id="hero-title" class="title fade-up d2">Job Title / Tagline Goes Here.</h1>
+        <p class="subtitle fade-up d3">Short intro / value prop goes here.</p>
+        <div class="cta fade-up d4">
+          <a class="btn spark" href="#projects">View projects</a>
+          <a class="btn" href="#contact">Contact me</a>
+        </div>
+      </div>
+      <div class="stage fade-up d3" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="kbd">▇▇▇▇ &nbsp; ▇▇▇▇</div>
+      </div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+      <p class="lead">Optional blurb about your projects.</p>
+      <div class="grid">
+        <article class="card fade-up">
+          <span class="tag">Category</span>
+          <h3>Project Title</h3>
+          <p>One-liner about the project.</p>
+          <div class="actions">
+            <a class="action" href="#" aria-label="Open live demo">Live</a>
+            <a class="action" href="#" aria-label="Open source code">Code</a>
+          </div>
+        </article>
+        <article class="card fade-up d2">
+          <span class="tag">Category</span>
+          <h3>Project Title</h3>
+          <p>One-liner about the project.</p>
+          <div class="actions">
+            <a class="action" href="#">Live</a>
+            <a class="action" href="#">Code</a>
+          </div>
+        </article>
+        <article class="card fade-up d3">
+          <span class="tag">Category</span>
+          <h3>Project Title</h3>
+          <p>One-liner about the project.</p>
+          <div class="actions">
+            <a class="action" href="#">Live</a>
+            <a class="action" href="#">Code</a>
+          </div>
+        </article>
+        <article class="card fade-up d4">
+          <span class="tag">Category</span>
+          <h3>Project Title</h3>
+          <p>One-liner about the project.</p>
+          <div class="actions">
+            <a class="action" href="#">Live</a>
+            <a class="action" href="#">Code</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Experience ===== -->
+    <section id="experience" class="section" aria-labelledby="xp-title">
+      <h2 id="xp-title">Experience</h2>
+      <p class="lead">Optional blurb about your work history.</p>
+      <div class="xp">
+        <div class="item fade-up">
+          <div class="role">Role / Company</div>
+          <div class="meta">Dates · Location</div>
+          <p>Description / impact bullets.</p>
+        </div>
+        <div class="item fade-up d2">
+          <div class="role">Role / Company</div>
+          <div class="meta">Dates · Location</div>
+          <p>Description / impact bullets.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About / Skills ===== -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <h2 id="about-title">About</h2>
+      <div class="about">
+        <div class="box fade-up">
+          <h3>Bio</h3>
+          <p><!-- Write your bio here. --></p>
+        </div>
+        <div class="box fade-up d2">
+          <h3>Skills</h3>
+          <div class="skills">
+            <span class="chip">Skill</span>
+            <span class="chip">Skill</span>
+            <span class="chip">Skill</span>
+            <span class="chip">Skill</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <p class="lead">How should people reach you?</p>
+      <form action="mailto:hello@example.com" method="post" enctype="text/plain">
+        <input name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <textarea name="message" placeholder="Tell me a bit about it…" required></textarea>
+        <button class="primary" type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <span>© <span id="year"></span> Your Name</span>
+      <div style="display:flex;gap:14px">
+        <a href="#" aria-label="GitHub profile">GitHub</a>
+        <a href="#" aria-label="LinkedIn profile">LinkedIn</a>
+        <a href="mailto:hello@example.com" aria-label="Send email">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle (light/dark)
+    const btn = document.getElementById('themeBtn');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)');
+    const setTheme = (mode)=>{document.documentElement.dataset.theme=mode;}
+    btn.addEventListener('click', ()=>{
+      const t = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      setTheme(t);
+      btn.textContent = t==='light' ? '☀' : '☾';
+    });
+    if (prefersLight.matches) { setTheme('light'); btn.textContent='☀'; }
+
+    // Light theme variable overrides
+    const lightVars = {
+      '--bg':'#fbfdff','--surface':'#ffffff','--text':'#10141a','--muted':'#5b6676','--shadow':'0 12px 34px rgba(16,24,40,.08)'
+    };
+    const obs = new MutationObserver(()=>{
+      if (document.documentElement.dataset.theme==='light'){
+        for (const k in lightVars) document.documentElement.style.setProperty(k, lightVars[k]);
+      } else {
+        document.documentElement.removeAttribute('style');
+      }
+    });
+    obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+    // Reveal-on-scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+    },{threshold:.15});
+    document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+    // Optional: keyboard shortcut to return home
+    // document.addEventListener('keydown', e => { if(e.key==='Escape') location.href='./index.html'; });
+  </script>
+</body>
+</html>
